@@ -17,7 +17,7 @@ maximum2' [] = error "maximum of empty list"
 maximum2' [x] = x
 maximum2' (x:xs) = max x (maximum2' xs)
 
--- | use with guard expressions
+-- | use with guard expressions, if predicate is true then we evaluate to right side
 
 replicate' :: (Num i, Ord i) => i -> a -> [a]
 replicate' n x
@@ -56,4 +56,4 @@ quicksort [] = []
 quicksort (x:xs) =
     let smallerSorted = quicksort [a | a <- xs, a <= x]
         biggerSorted = quicksort [a | a <- xs, a > x]
-    in  smallerSorted ++ [x] ++ biggerSorted  
+    in  smallerSorted ++ [x] ++ biggerSorted

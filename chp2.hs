@@ -12,6 +12,7 @@ appendList = 5 : [1,2,3]
 
 -- | [1,2,3] is actually just syntactic sugar for 1:2:3:[]. [] is an empty list.
 
+-- | If you want to get an element out of a list by index, use !!. The indices start at 0.
 stringListAtIndexSix = "Steve Buscemi" !! 6
 
 -- | When using head, tail, last and init, be careful not to use them on empty lists.
@@ -20,6 +21,24 @@ stringListAtIndexSix = "Steve Buscemi" !! 6
 
 divMeInfix = 92 `div` 10
 divMePrefix = div 92 10
+
+{--
+
+Lexically, infix operators consist entirely of "symbols," as opposed to normal identifiers which are alphanumeric (§2.4). Haskell has no prefix operators, with the exception of minus (-), which is both infix and prefix.]
+
+https://www.haskell.org/tutorial/functions.html 3.2
+
+when use infix symbol operators as prefix, surrond parenthesis first:
+
+[] ++ [1,2,3]
+
+(++) [] [1,2,3]
+
+z = (++ [])
+z [1,2,3]
+
+[1,2,3]
+--}
 
 -- | range(lower..upper) increment by 1
 
