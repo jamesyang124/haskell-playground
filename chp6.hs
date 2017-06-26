@@ -255,6 +255,27 @@ oddSquareSum = sum (takeWhile (<10000) (filter odd (map (^2) [1..])))
 
 -- | point as composition
 oddSquareSumP = sum . takeWhile (<10000) . filter odd . map (^2) $ [1..]
+{--
+oddSquareSumP = sum . takeWhile (<10000) . filter odd . map (^2) $ [1..]
+
+=> (sum . takeWhile (<10000) . filter odd . map (^2)) $ ([1..])
+=> (sum . (\t ....) . (\f ....) . (\m ....))) $ ([1..])
+=> [1..] in WHNF, reduce left part, right associative for composition, start from right-most dot
+=> (sum . (\t ....) . ((\f ....) . (\m ....))) $ ([1..])
+=> (sum . (\t ....) . ((\f -> .... ((\m ....) f))) $ ([1..])
+=> (sum . (\t -> .... ((\f -> .... ((\m ....) f)) t)) $ ([1..])
+=> (\s -> sum ((\t -> .... ((\f -> .... ((\m ....) f)) t) s)) $ ([1..])
+=> now apply [1..] to \s lambda
+=> sum ((\t -> .... ((\f -> .... ((\m ....) f)) t) [1..]))
+=> sum (takeWhile (<10000) ((\f -> .... ((\m ....) f)) [1..]))
+=> sum (takeWhile (<10000) (filter odd ((\m ....) [1..])))
+=> sum (takeWhile (<10000) (filter odd (map (^2) [1..])))
+=> sum (takeWhile (<10000) (filter odd (1^2, 2^2, ... n^2])))
+=> sum (takeWhile (<10000) (let n >= 0, n is Integer in (1^2, 3^2, ... (2n + 1)^2]))
+=> sum (let n >= 0, (2n + 1)^2 < 10000, n is Integer in (1^2, 3^2, ... (2n + 1)^2]))
+=> result
+
+--}
 
 
 -- | let bindings to split it in sub-problem domain
