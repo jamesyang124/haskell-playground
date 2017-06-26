@@ -226,15 +226,17 @@ f . g = \x -> f (g x)
 res7 = map (\x -> negate (abs x)) [5,-3,-6,7,-3,2,-19,24]
 res8 = map (negate . abs) [5,-3,-6,7,-3,2,-19,24]
 
+-- | https://stackoverflow.com/questions/20342860/why-is-function-composition-in-haskell-right-associative
 -- | Function composition is right-associative
 -- | f (g (z x)) == (f . g . z) x
 {--
-    (f. g . z) x
-=>  ((\x -> f(g x)) . z) x
-=>  (\t -> (\x -> f(g x)) (z t)) x
+    (f . g . z) x
+=>  (f . (g . z)) x      right-associative
+=>  (f . (\t -> g(z t))) x
+=>  (\s -> f ((\t -> g(z t)) s)) x
+=>  WHNF, but reduce lambda \s .. by x as topmost function application
+=>  f ((\t -> g(z t)) x)
 =>  WHNF, but reduce lambda \t .. by x
-=>  (\x -> f(g x)) (z x)
-=>  WHNF, but reduce lambda \x .. by (z x)
 =>  f (g (z x))
 
 --}
@@ -260,3 +262,5 @@ oddSquareSumL =
     let oddSquares = filter odd $ map (^2) [1..]
         belowLimit = takeWhile (<10000) oddSquares
     in  sum belowLimit
+
+-- | https://stackoverflow.com/questions/20342860/why-is-function-composition-in-haskell-right-associative
