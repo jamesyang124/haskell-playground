@@ -2,6 +2,9 @@ import Data.List
 import Data.Map
 import qualified Data.Set as Set
 import Geometry
+import qualified Geometry.Sphere as Sphere
+import qualified Geometry.Cuboid as Cuboid
+import qualified Geometry.Cube as Cube
 
 {--
 
@@ -92,3 +95,8 @@ res11 = Set.null $ Set.fromList [3,4,5,5,4,3]
 -- | False
 
 -- | Make a module, see top line import Geometry
+
+
+-- | Modules can also be given a hierarchical structures. Each module can have a number of sub-modules and they can have sub-modules of their own. Let's section these functions off so that Geometry is a module that has three sub-modules, one for each type of object.
+
+-- | Module name should be the same as folder name.
