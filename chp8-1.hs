@@ -166,3 +166,84 @@ Type parameters are useful because we can make different types with them dependi
 When we do :t Just "Haha", the type inference engine figures it out to be of the type Maybe [Char], because if the a in the Just a is a string, then the a in Maybe a must also be a string.
 
 --}
+
+{--
+
+Using type parameters is very beneficial, but only when using them makes sense.
+
+If we rewrite:
+
+data Car = Car { company :: String
+               , model :: String
+               , year :: Int
+               } deriving (Show)
+
+to:
+
+since company, model, year are the get/setter function, so we cannot reuse on diff value constructor in same module
+
+--}
+
+data Car6 a b c = Car6 { company6 :: a
+                     , model6:: b
+                     , year6 :: c
+                     } deriving (Show)
+
+{--
+
+THen we have to write its all type signature instead from:
+
+tellCar :: Car -> String
+tellCar (Car {company = c, model = m, year = y}) = "This " ++ c ++ " " ++ m ++ " was made in " ++ show y
+
+
+to:
+
+--}
+
+tellCar :: (Show a) => Car6 String String a -> String
+tellCar (Car6 {company6 = c, model6 = m, year6 = y}) = "This " ++ c ++ " " ++ m ++ " was made in " ++ show y
+
+{--
+
+We'd have to force this function to take a Car type of (Show a) => Car String String a.
+
+If we were defining a mapping type, we could add a typeclass constraint in the data declaration:
+
+data (Ord k) => Map k v = ...
+
+However, it's a very strong convention in Haskell to never add typeclass constraints in data declarations. Why? Well, because we don't benefit a lot, but we end up writing more class constraints, even when we don't need them.
+
+If we don't put the constraint in the data declaration, we don't have to put (Ord k) => in the type declarations of functions that don't care whether the keys can be ordered or not.
+
+--}
+
+{--
+
+An example of such a function is "toList", that just takes a mapping and converts it to an associative list.
+
+Its type signature is "toList :: Map k a -> [(k, a)]". If "Map k v" had a type constraint in its data declaration, the type for toList would have to be
+"toList :: (Ord k) => Map k a -> [(k, a)]"", even though the function doesn't do any comparing of keys by order.
+
+--}
+
+data Vector a = Vector a a a deriving (Show)
+
+vplus :: (Num t) => Vector t -> Vector t -> Vector t
+(Vector i j k) `vplus` (Vector l m n) = Vector (i+l) (j+m) (k+n)
+
+vectMult :: (Num t) => Vector t -> t -> Vector t
+(Vector i j k) `vectMult` m = Vector (i*m) (j*m) (k*m)
+
+scalarMult :: (Num t) => Vector t -> Vector t -> t
+(Vector i j k) `scalarMult` (Vector l m n) = i*l + j*m + k*n
+
+{--
+
+Once again, it's very important to distinguish between the type constructor and the value constructor.
+
+When declaring a data type, the part before the = is the type constructor and the constructors after it (possibly separated by |'s) are value constructors.
+
+Giving a function a type of Vector t t t -> Vector t t t -> t would be wrong, because we have to put types in type declaration and the vector type constructor takes only one parameter, whereas the value constructor takes three. Let's play around with our vectors.
+
+--}
