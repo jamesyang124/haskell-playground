@@ -1,3 +1,5 @@
+module Chp4 where
+
 -- | pattern matching for functions
 -- | very similar as you define function with values as input, instead of type variables
 
@@ -84,7 +86,7 @@ letBindings2 = [let square x = x * x in (square 5, square 3, square 2)]
 
 -- | We include a let inside a list comprehension much like we would a predicate, only it doesn't filter the list, it only binds to names.
 
-calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]
+calcBmis2 xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]
 
 {--
 The names defined in a let inside a list comprehension are visible to the output function (the part before the |) and all predicates and sections that come after of the binding.
@@ -103,7 +105,7 @@ head' (x:_) = x
 -- | above equivalent
 
 head1' xs = case xs of [] -> error "No head for empty lists!"
-                    (x:_) -> x
+                       (x:_) -> x
 
 -- | Whereas pattern matching on function parameters can only be done when defining functions, case expressions can be used pretty much anywhere.
 
@@ -114,7 +116,7 @@ describeList xs = "The list is " ++ case xs of [] -> "empty."
 {--
 They are useful for pattern matching against something in the middle of an expression. Because pattern matching in function definitions is syntactic sugar for case expressions, we could have also defined this like so:
 --}
-describeList xs = "The list is " ++ what xs
+describeList2 xs = "The list is " ++ what xs
     where what [] = "empty."
           what [x] = "a singleton list."
-          what xs = "a longer list."  
+          what xs = "a longer list."

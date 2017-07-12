@@ -1,3 +1,5 @@
+module Chp2 where
+
 -- | Function application (calling a function by putting a space after it and then typing out the parameters) has the highest precedence of them all.
 -- | Wrap the function call with parentheses if need
 

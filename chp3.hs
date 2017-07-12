@@ -1,3 +1,5 @@
+module Chp3 where
+
 -- | Haskell has type inference. If we write a number, we don't have to tell Haskell it's a number. It can infer that on its own
 
 
@@ -65,4 +67,4 @@ read :: (Read a) => String -> a
 It returns a type that's part of Read but if we don't try to use it in some way later, it has no way of knowing which type. That's why we can use explicit type annotations. Type annotations are a way of explicitly saying what the type of an expression should be.
 --}
 
-(read "5" :: Int) + 7
+res = (read "5" :: Int) + 7
