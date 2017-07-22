@@ -56,7 +56,9 @@ data Shape3 = Circle3 Point Float | Rectangle3 Point Point deriving (Show)
 
 {--
 
-Notice that when defining a point, we used the same name for the data type and the value constructor. This has no special meaning, although it's common to use the same name as the type if there's only one value constructor.
+Notice that when defining a point, we used the same name for the data type and the value constructor.
+
+This has no special meaning, although it's common to use the same name as the type if there's only one value constructor.
 
 --}
 
