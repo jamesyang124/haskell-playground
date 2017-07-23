@@ -238,9 +238,9 @@ instance YesNo [a] where
 instance YesNo Bool where
     yesno = id
 
-instance YesNo (Maybe a) where  
-    yesno (Just _) = True  
-    yesno Nothing = False 
+instance YesNo (Maybe a) where
+    yesno (Just _) = True
+    yesno Nothing = False
 
 instance YesNo (Tree a) where
     yesno EmptyTree = False
@@ -249,6 +249,7 @@ instance YesNo (Tree a) where
 instance YesNo TrafficLight where
     yesno Red = False
     yesno _ = True
+
 
 res4 = yesno $ Just 0
 -- True
