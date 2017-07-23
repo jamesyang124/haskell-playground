@@ -53,7 +53,10 @@ executable haskell-playground
   -- Modules included in this executable, other than Main.
   other-modules:      Chp2,
                       Chp3,
-                      Chp4
+                      Chp4,
+                      Chp5,
+                      Chp6,
+                      Chp7
 
   -- LANGUAGE extensions used by modules in this package.
   -- other-extensions:
