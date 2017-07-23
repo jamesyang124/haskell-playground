@@ -1,3 +1,5 @@
+module Chp6 where
+
 -- | Putting a space between two things is simply function application. The space is sort of like an operator and it has the highest precedence.
 
 {--

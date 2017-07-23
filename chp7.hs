@@ -1,3 +1,5 @@
+module Chp7 where
+
 import Data.List
 import Data.Map
 import qualified Data.Set as Set
