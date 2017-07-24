@@ -62,8 +62,8 @@ executable haskell-playground
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.8 && <4.10
-                       containers >=0.5.6 && <0.5.6.2
+  build-depends:       base >=4.8 && <4.10,
+                       containers >=0.5.6.2 && <0.5.7
 
   -- Directories containing source files.
   hs-source-dirs:     src
