@@ -39,7 +39,7 @@ Hmmm! What is this a? Is it a type? Remember that we previously stated that type
 
 Because it's not in capital case it's actually a "type variable" in type signature. That means that a can be of any type.
 
-type signature of a function must be all are types(parameterized data type or concrete type)
+type signature of a function must be all are concrete types.
 
 a -> Maybe t -> String   is OK
 a -> Maybe -> String     is not OK
@@ -60,10 +60,6 @@ Note that Maybe is a parameterized data type not a concrete type.
 
 By functions defined in Eq, we find "a" should be a concrete type.
 
-https://wiki.haskell.org/Abstract_data_type
-
-https://wiki.haskell.org/Concrete_data_type
-
 instance Eq (Maybe m) where
     Just x == Just y = x == y
     Nothing == Nothing = True
@@ -75,7 +71,7 @@ A parameterized type takes one or more type parameters. For example, the Standar
 
 data Maybe a = Nothing | Just a
 
-Functor requires an unary parameterized type "f" by fmap definition.
+Functor requires an unary parameterized type(or unary type constructor) "f" by fmap definition.
 
 class Functor f where
     fmap :: (a -> b) -> f a -> f b
@@ -84,7 +80,21 @@ instance Functor Maybe where
     fmap f (Just x) = Just (f x)
     fmap f Nothing = Nothing
 
-Here we use Maybe type constructor instead of type (Maybe m) since Functor type class require a * -> * kind instead of * such as (Maybe m) concrete type in type class definition.
+Here we use Maybe type constructor instead of concrete type (Maybe m) since Functor type class require a * -> * kind instead of * such as (Maybe m) concrete type in type class definition.
+
+Maybe takes a concrete type and returns a concrete type.
+
+the * indicates a concrete type
+
+For example, Maybe Integer, Maybe a, Bool, [(String,String)] and Tree String are concrete data types.
+
+"Maybe Int" and "Maybe a" are concrete types (or if you want, calls to type constructor functions that return concrete types.)
+
+type/value constructors are also functions!
+
+https://stackoverflow.com/questions/18204308/haskell-type-vs-data-constructor
+https://wiki.haskell.org/Abstract_data_type
+https://wiki.haskell.org/Concrete_data_type
 
 --}
 
