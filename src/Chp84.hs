@@ -1,3 +1,6 @@
+module Chp84
+where
+
 {-- Functor typeclass --}
 
 {--

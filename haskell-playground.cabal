@@ -56,7 +56,16 @@ executable haskell-playground
                       Chp4,
                       Chp5,
                       Chp6,
-                      Chp7
+                      Chp7,
+                      Chp81,
+                      Chp82,
+                      Chp83,
+                      Chp84,
+                      Chp91,
+                      Chp92,
+                      Chp93,
+                      Chp94,
+                      Chp95
 
   -- LANGUAGE extensions used by modules in this package.
   -- other-extensions:

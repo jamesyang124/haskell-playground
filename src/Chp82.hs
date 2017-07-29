@@ -1,3 +1,6 @@
+module Chp82
+where
+
 {-- Derived instances --}
 
 {--

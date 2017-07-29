@@ -1,3 +1,6 @@
+module Chp93
+where
+
 {-- Files and streams
 
 getContents is an I/O action that reads everything from the standard input until it encounters an end-of-file character.
@@ -243,7 +246,7 @@ It takes a path to a temporary directory and a template name for a file and open
 
 --}
 
-main12 = do        
+main12 = do
     handle <- openFile "todo.txt" ReadMode
     (tempName, tempHandle) <- openTempFile "." "temp"
     contents <- hGetContents handle

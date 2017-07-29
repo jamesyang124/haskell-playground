@@ -1,3 +1,6 @@
+module Chp94
+where
+
 {-- cmd line arguments
 
 The System.Environment module has two cool I/O actions. One is getArgs, which has a type of getArgs :: IO [String]

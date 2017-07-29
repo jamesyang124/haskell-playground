@@ -1,4 +1,4 @@
-module Shapes
+module Chp81
 ( Point(..)
 , Shape3(..)
 , surface3

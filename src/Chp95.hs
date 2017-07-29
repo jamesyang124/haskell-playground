@@ -1,3 +1,6 @@
+module Chp95
+where
+
 import qualified Data.ByteString.Lazy as B
 import qualified Data.ByteString as S
 import System.Directory

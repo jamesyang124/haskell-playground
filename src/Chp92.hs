@@ -1,3 +1,6 @@
+module Chp92
+where
+
 {-- when
 
 The when function is found in Control.Monad (to get access to it, do import Control.Monad). It's interesting because in a do block it looks like a control flow statement, but it's actually a normal function.
