@@ -82,6 +82,8 @@ since $ is right-associative, and almost lowest precedence
 => (\x -> x + 1) $ 2028
 => 2029
 
+Since $ operator usually get lowest precedence, so both part will apply first  from left to right before applying $ operator.
+
 --}
 
 main2 = do
