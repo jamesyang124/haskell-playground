@@ -29,6 +29,80 @@ You can think of fmap as either a function that takes a function and a functor a
 
 --}
 
+{--
+
+Another instance of Functor that we've been dealing with all along but didn't know was a Functor is (->) r. You're probably slightly confused now, since what the heck does (->) r mean?
+
+The function type r -> a can be rewritten as (->) r a, much like we can write 2 + 3 as (+) 2 3. When we look at it as (->) r a, we can see (->) in a slighty different light, because we see that it's just a type constructor that takes two type parameters, just like Either.
+
+But remember, we said that a type constructor has to take exactly one type parameter so that it can be made an instance of Functor.
+
+That's why we can't make (->) an instance of Functor, but if we partially apply it to (->) r, it doesn't pose any problems.
+
+If the syntax allowed for type constructors to be partially applied with sections (like we can partially apply + by doing (2+), which is the same as (+) 2), you could write (->) r as (r ->). How are functions functors? Well, let's take a look at the implementation, which lies in Control.Monad.Instances
+
+We usually mark functions that take anything and return anything as a -> b. r -> a is the same thing, we just used different letters for the type variables.
+
+instance Functor ((->) r) where
+    fmap f g = (\x -> f (g x))
+
+If the syntax allowed for it, it could have been written as
+
+instance Functor (r ->) where
+    fmap f g = (\x -> f (g x))
+
+But it doesn't, so we have to write it in the former fashion.
+
+First of all, let's think about fmap's type. It's fmap :: (a -> b) -> f a -> f b. Now what we'll do is mentally replace all the f's, which are the role that our functor instance plays, with (->) r's.
+
+We'll do that to see how fmap should behave for this particular instance.
+
+We get fmap :: (a -> b) -> ((->) r a) -> ((->) r b).
+
+Now what we can do is write the (->) r a and (-> r b) types as infix r -> a and r -> b, like we normally do with functions.
+
+What we get now is fmap :: (a -> b) -> (r -> a) -> (r -> b).
+
+We pipe the output of r -> a into the input of a -> b to get a function r -> b, which is exactly what function composition is about.
+
+If you look at how the instance is defined above, you'll see that it's just function composition. Another way to write this instance would be:
+
+instance Functor ((->) r) where
+    fmap = (.)
+
+ghci> :t fmap (*3) (+100)
+fmap (*3) (+100) :: (Num a) => a -> a
+ghci> fmap (*3) (+100) 1
+303
+ghci> (*3) `fmap` (+100) $ 1
+303
+ghci> (*3) . (+100) $ 1
+303
+ghci> fmap (show . (*3)) (*100) 1
+"300"
+
+Now we can see how fmap acts just like . for functions.
+
+The fact that fmap is function composition when used on functions isn't so terribly useful right now, but at least it's very interesting.
+
+It also bends our minds a bit and let us see how things that act more like computations than boxes (IO and (->) r) can be functors.
+
+The function being mapped over a computation results in the same computation but the result of that computation is modified with the function.
+
+https://stackoverflow.com/questions/9136421/where-can-i-read-up-on-the-haskell-operator
+
+(->) is often called the "function arrow" or "function type constructor", and while it does have some special syntax, there's not that much special about it.
+
+It's essentially an infix "type" constructor. Give it two types, and it gives you the type of functions between those types.
+
+The infix style of this type constructor is not part of the Haskell standard, that's why (r ->) is not allowed but ((->) r) is fine in above instance definition.
+
+we can say (->) is a higher-kinded type. Maybe is a higher-kinded type, but (Maybe a) is a concrete type. Maybe is a type constructor, as well as type functions.
+
+type is a set of values, typeclass is a set of types. Functor typeclass is a set of higher-kinded types which kind signature is * -> *. So partial applied higher-kinded types maybe in the set of Functor typeclass. As long as it has the same kind signature * -> *.
+
+--}
+
 {-- Functor laws
 
 we're going to look at the functor laws. In order for something to be a functor, it should satisfy some laws. All functors are expected to exhibit certain kinds of functor-like properties and behaviors:
