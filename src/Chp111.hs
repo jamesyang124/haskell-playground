@@ -180,6 +180,33 @@ sequenceA [[1], []]
 
 => fs >>= (\f -> xs >>= (\x -> f x))
 => since [] >>= (\x -> [(+ 1) x]) = []
+=> fs >>= (\f -> [])
 => and xs >>= k = join (fmap k xs)
+=> join (fmap (\f -> []) fs)
+=> []
+
+instance Functor [] where
+  fmap = map
+
+-- https://hackage.haskell.org/package/base-4.10.0.0/docs/src/GHC.Base.html#fmap
+
+map _ []     = []
+map f (x:xs) = f x : map f xs
+
+-- http://hackage.haskell.org/package/base-4.10.0.0/docs/src/GHC.Base.html#map
+
+--}
+
+{--
+
+ghci> map (\f -> f 7) [(>4),(<10),odd]
+[True,True,True]
+ghci> and $ map (\f -> f 7) [(>4),(<10),odd]
+True
+
+ghci> sequenceA [(>4),(<10),odd] 7
+[True,True,True]
+ghci> and $ sequenceA [(>4),(<10),odd] 7
+True 
 
 --}
